@@ -35,7 +35,7 @@ class NewVisitorTest(unittest.TestCase):
         # that page refresh to same page
         # he saw Coding in row monday colum 1.00 and 3.00 
         # he close webbrowser
-
+        self.fail("Yeah this complete")
 
 
 
