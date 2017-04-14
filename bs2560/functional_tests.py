@@ -12,10 +12,12 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_can_visit_to_right_webap(self):
+    def test_can_make_new_user_and_join_in(self):
         # Mr.fox want to use schedule webapp
         # He open web browser and go to that web
-        # He saw the title page was "...."
+        self.browser.get('http://localhost:8000')
+        # He saw the title page was "schedule"
+        self.assertIn('schedule', self.browser.title)
         # then the words " Hi Who are you " in the center of that web
         # and that show list of user he want to make news user for him
         # he saw the input box in buttom of that page 
