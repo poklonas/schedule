@@ -25,14 +25,11 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn("Hi , Who are you ?", [row.text for row in center_text])
         head_text = self.browser.find_elements_by_tag_name('h1')
         self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
-        ### test head_text "Hi , Who are you ?" is same as in center_text 
-       # for row_center in center_text
-       #     for row_head in head_text
-       #         if
 
-        # and that show list of user he want to make news user for him
-        # he saw the input box in buttom of that page 
+        # he saw the input box in buttom of that page
         # he fill his name and enter button to make new user
+        inputbox = self.browser.find_element_by_id('new_user')
+ 
         # that page refresh and show new user in user list
         # he saw user name " fox "
         # he click that link 
