@@ -13,6 +13,11 @@ class NewVisitorTest(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_user_list_table(self, name):
+        table = self.browser.find_element_by_id('user_list')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(name, [row.text for row in rows])
+
     def test_can_make_new_user_and_join_in(self):
         # Mr.fox want to use schedule webapp
         # He open web browser and go to that web
@@ -29,10 +34,20 @@ class NewVisitorTest(LiveServerTestCase):
 
         # he saw the input box in buttom of that page
         # he fill his name and enter button to make new user
-        inputbox = self.browser.find_element_by_id('new_user')
- 
+        input_username = self.browser.find_element_by_id('new_user')
+        self.assertEqual(
+                input_username.get_attribute('placeholder'),
+                'user name'
+        )
+        input_username.send_keys('fox')
+        input_username.send_keys(Keys.ENTER)
+        #import time
+        #time.sleep(2)          
+
         # that page refresh and show new user in user list
         # he saw user name " fox "
+        self.check_for_row_in_user_list_table('fox')
+
         # he click that link 
         # then that page change to " ..... .. "
         # he saw the words " Hello Fox " in center of this page

@@ -8,8 +8,9 @@
     <h1>Hi , Who are you ?</h1>
     <br><br><br>
 
-	<form id="new_user" method="post">
-		<input type="text" name="user_name" placeholder="user name" required>
+	<form method="post">
+        {% csrf_token %}
+		<input id="new_user" type="text" name="user_name" placeholder="user name" required>
 		<input type="submit" value="New User">
     </form>
 
