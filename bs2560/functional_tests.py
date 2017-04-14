@@ -16,9 +16,20 @@ class NewVisitorTest(unittest.TestCase):
         # Mr.fox want to use schedule webapp
         # He open web browser and go to that web
         self.browser.get('http://localhost:8000')
+
         # He saw the title page was "schedule"
         self.assertIn('schedule', self.browser.title)
-        # then the words " Hi Who are you " in the center of that web
+
+        # then the words " Hi , Who are you ? " in the center of that web
+        center_text = self.browser.find_elements_by_tag_name('center')
+        self.assertIn("Hi , Who are you ?", [row.text for row in center_text])
+        head_text = self.browser.find_elements_by_tag_name('h1')
+        self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
+        ### test head_text "Hi , Who are you ?" is same as in center_text 
+       # for row_center in center_text
+       #     for row_head in head_text
+       #         if
+
         # and that show list of user he want to make news user for him
         # he saw the input box in buttom of that page 
         # he fill his name and enter button to make new user
