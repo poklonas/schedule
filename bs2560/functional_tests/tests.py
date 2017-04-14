@@ -1,9 +1,10 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -15,7 +16,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_make_new_user_and_join_in(self):
         # Mr.fox want to use schedule webapp
         # He open web browser and go to that web
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # He saw the title page was "schedule"
         self.assertIn('schedule', self.browser.title)
@@ -48,7 +49,3 @@ class NewVisitorTest(unittest.TestCase):
         self.fail("Yeah this complete")
 
 
-
-
-if __name__ == '__main__':  #7
-    unittest.main(warnings='ignore')  #8
