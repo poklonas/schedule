@@ -45,8 +45,21 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(0.5)# wait for data     
 
         # that page refresh and show new user in user list
-        # he saw user name " fox "
+        # he saw user name " fox ""
         self.check_for_row_in_user_list_table('fox')
+
+        # his friend see that and interesting in this he want user for
+        # him self mr.fox fill name "Jay" in input box and make new user again
+        input_username = self.browser.find_element_by_id('new_user')
+        input_username.send_keys('Jay')
+        input_username.send_keys(Keys.ENTER)
+
+        time.sleep(0.5)
+
+        #that page refreash again and show new user in user list
+        # that include fox and Jay
+        self.check_for_row_in_user_list_table('fox')
+        self.check_for_row_in_user_list_table('Jay')
 
         # he click that link 
         # then that page change to " ..... .. "
