@@ -52,3 +52,11 @@ class ScheduleHomePageTest(TestCase):
         request = HttpRequest()
         home_page(request)
         self.assertEqual(User.objects.count(), 0)
+
+    def test_home_page_display_all_user_list(self):
+        User.objects.create(name='user_one')
+        User.objects.create(name='user_two')
+        request = HttpRequest()
+        response = home_page(request)
+        self.assertIn('user_one', response.content.decode())
+        self.assertIn('user_two', response.content.decode())
