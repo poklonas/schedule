@@ -39,3 +39,11 @@ class ScheduleHomePageTest(TestCase):
         self.assertEqual(User.objects.count(), 1)
         new_user = User.objects.first()
         self.assertEqual(new_user.name, 'user_one')
+
+    def test_home_page_rediracts_after_POST(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['user_name'] = 'user_one'
+        response = home_page(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
