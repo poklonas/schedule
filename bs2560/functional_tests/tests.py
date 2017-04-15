@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+import time
 import unittest
 
 class NewVisitorTest(LiveServerTestCase):
@@ -41,8 +42,8 @@ class NewVisitorTest(LiveServerTestCase):
         )
         input_username.send_keys('fox')
         input_username.send_keys(Keys.ENTER)
-        #import time
-        #time.sleep(2)          
+        
+        time.sleep(0.5)# wait for data     
 
         # that page refresh and show new user in user list
         # he saw user name " fox "
