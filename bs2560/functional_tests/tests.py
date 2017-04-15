@@ -28,9 +28,8 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('schedule', self.browser.title)
 
         # then the words " Hi , Who are you ? " in the center of that web
-        center_text = self.browser.find_elements_by_tag_name('center')
-        self.assertIn("Hi , Who are you ?", [row.text for row in center_text])
-        head_text = self.browser.find_elements_by_tag_name('h1')
+        center_text = self.browser.find_element_by_tag_name('center')
+        head_text =center_text.find_elements_by_tag_name('h1')
         self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
 
         # he saw the input box in buttom of that page
@@ -42,7 +41,7 @@ class NewVisitorTest(LiveServerTestCase):
         )
         input_username.send_keys('fox')
         input_username.send_keys(Keys.ENTER)
-        
+
         time.sleep(0.5)# wait for data     
 
         # that page refresh and show new user in user list
