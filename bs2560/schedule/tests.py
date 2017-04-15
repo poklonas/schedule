@@ -47,3 +47,8 @@ class ScheduleHomePageTest(TestCase):
         response = home_page(request)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/')
+
+    def test_home_page_only_save_user_when_necessary(self):
+        request = HttpRequest()
+        home_page(request)
+        self.assertEqual(User.objects.count(), 0)
