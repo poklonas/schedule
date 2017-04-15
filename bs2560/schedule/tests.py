@@ -60,3 +60,18 @@ class ScheduleHomePageTest(TestCase):
         response = home_page(request)
         self.assertIn('user_one', response.content.decode())
         self.assertIn('user_two', response.content.decode())
+
+class UserModelTest(TestCase):
+
+    def test_saving_and_retrieving_user(self):
+        first_user = User(name='first')
+        first_user.save()
+        second_user = User(name='second')
+        second_user.save()
+        all_user = User.objects.all()
+        self.assertEqual(all_user.count(), 2)
+        first_save_user = all_user[0]
+        second_save_user = all_user[1]
+        self.assertEqual(first_save_user.name, 'first')
+        self.assertEqual(second_save_user.name, 'second')
+      

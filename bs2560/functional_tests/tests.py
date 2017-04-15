@@ -61,7 +61,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_user_list_table('fox')
         self.check_for_row_in_user_list_table('Jay')
 
-        # he click that link 
+        # he click his name [that was a link]
         # then that page change to " ..... .. "
         # he saw the words " Hello Fox " in center of this page
         # he saw the empty table in buttom of this page that show
