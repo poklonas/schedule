@@ -3,6 +3,9 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
 from schedule.views import home_page
+from schedule.models import User
+
+import re
 
 class ScheduleHomePageTest(TestCase):
 
@@ -17,8 +20,22 @@ class ScheduleHomePageTest(TestCase):
         self.assertIn(b'<title>schedule</title>', response.content)
         self.assertTrue(response.content.strip().endswith(b'</html>'))
 
+    def remove_csrf(self, html_code):
+        csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
+        return re.sub(csrf_regex, '', html_code)
+
     def test_home_page_return_correct_html(self):
         request = HttpRequest()
         response = home_page(request)
         expected_html = render_to_string('schedule/homepage.html')
-        self.assertEqual(response.content.decode(), expected_html)
+        self.assertEqual(self.remove_csrf(response.content.decode()), 
+                         self.remove_csrf(expected_html))
+
+    def test_home_page_can_save_a_POST_request(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['user_name'] = 'user_one'
+        response = home_page(request)
+        self.assertEqual(User.objects.count(), 1)
+        new_user = User.objects.first()
+        self.assertEqual(new_user.name, 'user_one')
