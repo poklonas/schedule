@@ -19,6 +19,11 @@ class NewVisitorTest(LiveServerTestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(name, [row.text for row in rows])
 
+    def check_for_row_in_user_list_table_is_link(self, name):
+        table = self.browser.find_element_by_id('user_list')
+        rows = table.find_elements_by_link_text(name)
+        self.assertEqual(rows.count(), 1)
+
     def test_can_make_new_user_and_join_in(self):
         # Mr.fox want to use schedule webapp
         # He open web browser and go to that web
@@ -60,6 +65,11 @@ class NewVisitorTest(LiveServerTestCase):
         # that include fox and Jay
         self.check_for_row_in_user_list_table('fox')
         self.check_for_row_in_user_list_table('Jay')
+
+        # he observe the user name that is a link 
+        self.check_for_row_in_user_list_table_is_link('fox')
+        self.check_for_row_in_user_list_table_is_link('Jay')
+        
 
         # he click his name [that was a link]
         # then that page change to " ..... .. "
