@@ -103,11 +103,13 @@ class NewVisitorTest(LiveServerTestCase):
 
         # and each colum was time start in 0.00 - 23.00 each colum has 1 hr
         for count in range(0, 24):
-            self.assertIn(str(count)+".00", [colum.text for colum in colum_time])
+            if(count < 10):
+                count = '0' + str(count)
+            self.assertIn(str(count), [colum.text for colum in colum_time])
 
-        # in buttom of each row has a button for select 
+        # he saw a inputbox for fill a detail of time and start and end of time and day
+        
 
-        # he saw a inputbox for fill a detail of time
         # he select time 1.00 and 3.00 and fill detail is "Coding",and row of monday
         # then he click button to commit
         # that page refresh to same page

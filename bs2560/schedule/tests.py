@@ -114,6 +114,17 @@ class ScheduleUserPageTest(TestCase):
         expected_html = render_to_string('schedule/userpage.html')
         self.assertIn("<tr id ='time'>", self.remove_csrf(expected_html))
 
+    def test_user_page_has_colum_for_show_all_time(self):
+        user = User(name='')
+        user.save()
+        request = HttpRequest()
+        response = user_page(request, user_id=user.pk)
+        expected_html = render_to_string('schedule/userpage.html')
+        for count in range(0, 24):
+            if(count < 10):
+                count = '0' + str(count)
+            self.assertIn(str(count), self.remove_csrf(expected_html))
+
     def test_user_page_has_rows_for_show_any_day(self):
         user = User(name='')
         user.save()
