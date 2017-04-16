@@ -3,15 +3,19 @@
 	<title>user_page</title>
     <style>
         table{
-            width: 100%;
+            width: 150%;
             height: 80%;
         }
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
         } 
-        th{
-            width: : 4%; 
+        th.head{
+            width :5%;
+            height: 12%;
+        }
+        tr.selecter{
+            height:4%;
         }
     </style>
 </head>
@@ -22,7 +26,7 @@
     <table id='table_time'>
         <!-- time -->
         <tr id ='time'>
-            <th>Time/Date</th>
+            <th class='head'>Time [hr] /Day</th>
             <th>00</th>
             <th>01</th>
             <th>02</th>
@@ -50,7 +54,7 @@
         </tr>
         <!-- day -->
         <tr>
-            <th rowspan="2">Monday</th>
+            <th>Monday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -76,7 +80,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
+            <th>Tuesday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -102,8 +108,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
-            <th rowspan="2">Tuesday</th>
+            <th>Wednesday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -129,7 +136,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
+            <th>Thursday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -155,8 +164,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
-            <th rowspan="2">Wednesday</th>
+            <th>Friday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -182,7 +192,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
+            <th>Saturday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -208,8 +220,9 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
-            <th rowspan="2">Thursday</th>
+            <th>Sunday</th>
             <td></td>
             <td></td>
             <td></td>
@@ -235,191 +248,7 @@
             <td></td>
             <td></td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="2">Friday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="2">Saturday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="2">Sunday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
     </table>
 </center>
 </body>
