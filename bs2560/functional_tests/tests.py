@@ -90,6 +90,8 @@ class NewVisitorTest(LiveServerTestCase):
         # each row is each day " monday tueday wed .  . .  ."
         # and each colum was time start in 0.00 - 23.00 each colum has 1 hr
         # in buttom of each row has a button for select 
+        
+
         # he saw a inputbox for fill a detail of time
         # he select time 1.00 and 3.00 and fill detail is "Coding",and row of monday
         # then he click button to commit

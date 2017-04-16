@@ -72,6 +72,10 @@ class ScheduleHomePageTest(TestCase):
 
 class ScheduleUserPageTest(TestCase):
 
+    def test_root_url_resolves_to_user_page_view(self):
+        found = resolve('/0')
+        self.assertEqual(found.func, user_page)
+
     def remove_csrf(self, html_code):
         csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
         return re.sub(csrf_regex, '', html_code)
