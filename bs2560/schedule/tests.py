@@ -61,6 +61,15 @@ class ScheduleHomePageTest(TestCase):
         self.assertIn('user_one', response.content.decode())
         self.assertIn('user_two', response.content.decode())
 
+    def test_home_page_display_all_user_link(self):
+        user_one = User.objects.create(name='user_one')
+        user_two = User.objects.create(name='user_two')
+        request = HttpRequest()
+        response = home_page(request)
+        all_link = re.findall(r'href=[\'"]?([^\'" >]+)', response.content.decode())
+        self.assertIn('/%d'%user_one.pk, all_link)
+        self.assertIn('/%d'%user_two.pk, all_link)
+
 class UserModelTest(TestCase):
 
     def test_saving_and_retrieving_user(self):
