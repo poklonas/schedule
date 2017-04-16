@@ -94,7 +94,13 @@ class NewVisitorTest(LiveServerTestCase):
         colum_time = first_row.find_elements_by_tag_name('th')
 
         # each row is each day " monday tueday wed .  . .  ."
- 
+        self.assertIn('Monday', [row.text for row in rows_day])
+        self.assertIn('Tuesday', [row.text for row in rows_day])
+        self.assertIn('Wednesday', [row.text for row in rows_day])
+        self.assertIn('Thursday', [row.text for row in rows_day])
+        self.assertIn('Friday', [row.text for row in rows_day])
+        self.assertIn('Saturday', [row.text for row in rows_day])
+        self.assertIn('Sunday', [row.text for row in rows_day])
 
         # and each colum was time start in 0.00 - 23.00 each colum has 1 hr
         for count in range(0, 24):
