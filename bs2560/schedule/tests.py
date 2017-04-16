@@ -114,6 +114,18 @@ class ScheduleUserPageTest(TestCase):
         expected_html = render_to_string('schedule/userpage.html')
         self.assertIn("<tr id ='time'>", self.remove_csrf(expected_html))
 
+    def test_user_page_has_rows_for_show_any_day(self):
+        user = User(name='')
+        user.save()
+        request = HttpRequest()
+        response = user_page(request, user_id=user.pk)
+        expected_html = render_to_string('schedule/userpage.html')
+        list_of_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        for day in list_of_day:
+            print(day)
+            self.assertIn(day, self.remove_csrf(expected_html))
+        
+
 class UserModelTest(TestCase):
 
     def test_saving_and_retrieving_user(self):
