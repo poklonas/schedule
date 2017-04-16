@@ -81,7 +81,11 @@ class NewVisitorTest(LiveServerTestCase):
         # the title page is "user_page"
         self.assertIn('user_page', self.browser.title)
 
-        # he saw the words " Hello Fox " in center of this page
+        # he saw the words " Hi fox " in center of this page
+        center_text = self.browser.find_element_by_tag_name('center')
+        head_text =center_text.find_elements_by_tag_name('h1')
+        self.assertIn('Hi fox', [row.text for row in head_text])
+
         # he saw the empty table in buttom of this page that show
         # each row is each day " monday tueday wed .  . .  ."
         # and each colum was time start in 0.00 - 23.00 each colum has 1 hr
