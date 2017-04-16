@@ -22,7 +22,7 @@ class NewVisitorTest(LiveServerTestCase):
     def check_for_row_in_user_list_table_is_link(self, name):
         table = self.browser.find_element_by_id('user_list')
         rows = table.find_elements_by_link_text(name)
-        self.assertEqual(rows.count(), 1)
+        self.assertNotEqual(rows, []) # if empyty that mean it cant find any link 
 
     def test_can_make_new_user_and_join_in(self):
         # Mr.fox want to use schedule webapp
@@ -72,7 +72,12 @@ class NewVisitorTest(LiveServerTestCase):
         
 
         # he click his name [that was a link]
-        # then that page change to " ..... .. "
+        link = self.browser.find_element_by_link_text('fox')
+        link.click()
+
+        time.sleep(0.5)
+
+        # then that page change to his user page
         # he saw the words " Hello Fox " in center of this page
         # he saw the empty table in buttom of this page that show
         # each row is each day " monday tueday wed .  . .  ."

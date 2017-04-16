@@ -9,7 +9,7 @@
     <br><br><br>
 	<table id="user_list">
         {% for user in user_list %}
-        	<tr><td><a href='/{{user.pk}}')>{{ user.name }}</a><td></tr>
+        	<tr><td><a id='{{user.pk}}' href='/{{user.pk}}')>{{ user.name }}</a><td></tr>
         {% endfor %}
     </table>
     <br><br><br>
