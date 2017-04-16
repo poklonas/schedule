@@ -10,3 +10,7 @@ def home_page(request):
         return redirect('/')
     user_list = User.objects.all()
     return render(request, 'schedule/homepage.html', {'user_list': user_list})
+
+def user_page(request, user_id):
+	user = User.objects.get(pk=user_id)
+	return render(request, 'schedule/userpage.html', {'user': user})

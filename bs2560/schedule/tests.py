@@ -2,7 +2,7 @@ from django.core.urlresolvers import resolve
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
-from schedule.views import home_page
+from schedule.views import *
 from schedule.models import User
 
 import re
@@ -69,6 +69,30 @@ class ScheduleHomePageTest(TestCase):
         all_link = re.findall(r'href=[\'"]?([^\'" >]+)', response.content.decode())
         self.assertIn('/%d'%user_one.pk, all_link)
         self.assertIn('/%d'%user_two.pk, all_link)
+
+class ScheduleUserPageTest(TestCase):
+
+    def remove_csrf(self, html_code):
+        csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
+        return re.sub(csrf_regex, '', html_code)
+
+    def test_user_page_have_right_title(self):
+        user = User(name='user_one')
+        user.save()
+        request = HttpRequest()
+        response = user_page(request, user_id=user.pk)
+        self.assertTrue(response.content.startswith(b'<html>'))
+        self.assertIn(b'<title>user_page</title>', response.content)
+        self.assertTrue(response.content.strip().endswith(b'</html>'))
+
+    def test_user_page_return_correct_html(self):
+        user = User(name='')
+        user.save()
+        request = HttpRequest()
+        response = user_page(request, user_id=user.pk)
+        expected_html = render_to_string('schedule/userpage.html')
+        self.assertEqual(self.remove_csrf(response.content.decode()), 
+                         self.remove_csrf(expected_html))
 
 class UserModelTest(TestCase):
 

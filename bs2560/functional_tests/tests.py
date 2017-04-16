@@ -78,6 +78,9 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(0.5)
 
         # then that page change to his user page
+        # the title page is "user_page"
+        self.assertIn('user_page', self.browser.title)
+
         # he saw the words " Hello Fox " in center of this page
         # he saw the empty table in buttom of this page that show
         # each row is each day " monday tueday wed .  . .  ."
