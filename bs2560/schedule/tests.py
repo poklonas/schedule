@@ -98,6 +98,14 @@ class ScheduleUserPageTest(TestCase):
         self.assertEqual(self.remove_csrf(response.content.decode()), 
                          self.remove_csrf(expected_html))
 
+    def test_user_page_has_element_table_time(self):
+        user = User(name='')
+        user.save()
+        request = HttpRequest()
+        response = user_page(request, user_id=user.pk)
+        expected_html = render_to_string('schedule/userpage.html')
+        self.assertIn("<table id='table_time'>", self.remove_csrf(expected_html))
+
 class UserModelTest(TestCase):
 
     def test_saving_and_retrieving_user(self):
