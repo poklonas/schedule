@@ -127,9 +127,22 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('user_page', self.browser.title)
 
         # he saw Coding in row monday colum 1.00 and 3.00 
+         #wait for do
 
         # he saw a link back to main menu in top left
+        link_back = self.browser.find_element_by_link_text('Back to main menu')
+
         # he click to return a homepage
+        link_back.click()
+        time.sleep(0.5)
+
+        # He saw the title page was "schedule"
+        self.assertIn('schedule', self.browser.title)
+
+        # then the words " Hi , Who are you ? " in the center of that web
+        center_text = self.browser.find_element_by_tag_name('center')
+        head_text =center_text.find_elements_by_tag_name('h1')
+        self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
         
         # he close webbrowser
         self.fail("Yeah this complete")
