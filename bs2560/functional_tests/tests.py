@@ -19,6 +19,21 @@ class NewVisitorTest(LiveServerTestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(name, [row.text for row in rows])
 
+    def find_text_of_row_and_time_of_day_in_table(self, day, time):
+        table = self.browser.find_element_by_id('table_time')
+        rows = table.find_elements_by_tag_name('tr')
+        for row in rows:
+            th_row = row.find_element_by_tag_name('th')
+            if (th_row.text == day):
+                colums = row.find_elements_by_tag_name('td')
+                count = 0;
+                for colum in colums:
+                    if count < time:
+                        count = count + 1
+                    else:
+                        return colum.text
+
+
     def check_for_row_in_user_list_table_is_link(self, name):
         table = self.browser.find_element_by_id('user_list')
         rows = table.find_elements_by_link_text(name)
@@ -88,7 +103,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # he saw the empty table in buttom of this page that show
         table = self.browser.find_element_by_id('table_time')
-        rows_day = table.find_elements_by_tag_name('tr')
+        rows_day = table.find_elements_by_tag_name('th')
         first_row = table.find_element_by_id('time')
         colum_time = first_row.find_elements_by_tag_name('th')
 
@@ -126,8 +141,10 @@ class NewVisitorTest(LiveServerTestCase):
         # the title page is "user_page"
         self.assertIn('user_page', self.browser.title)
 
+        time.sleep(0.5)
         # he saw Coding in row monday colum 1.00 and 3.00 
-         #wait for do
+        self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 1))
+        self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 3))
 
         # he saw a link back to main menu in top left
         link_back = self.browser.find_element_by_link_text('Back to main menu')
