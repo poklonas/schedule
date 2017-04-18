@@ -101,19 +101,27 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Saturday', [row.text for row in rows_day])
         self.assertIn('Sunday', [row.text for row in rows_day])
 
-        # and each colum was time start in 0.00 - 23.00 each colum has 1 hr
+        # and each colum was time start in 00.00 - 23.00 each colum has 1 hr
         for count in range(0, 24):
             if(count < 10):
                 count = '0' + str(count)
             self.assertIn(str(count), [colum.text for colum in colum_time])
 
-        # he saw a inputbox for fill a detail of time and start and end of time and day
-        
+        # he saw a inputbox for fill a detail of time and start and how_many_hour and day
+        detail_inputbox = self.browser.find_element_by_id('detail')
+        day_inputbox = self.browser.find_element_by_id('day_selecter')
+        start_time_selec = self.browser.find_element_by_id('start_time')
+        how_many_hour = self.browser.find_element_by_id('how_many_hour')
 
         # he select time 1.00 and 3.00 and fill detail is "Coding",and row of monday
         # then he click button to commit
         # that page refresh to same page
+
         # he saw Coding in row monday colum 1.00 and 3.00 
+
+        # he saw a link back to main menu in top left
+        # he click to return a homepage
+        
         # he close webbrowser
         self.fail("Yeah this complete")
 

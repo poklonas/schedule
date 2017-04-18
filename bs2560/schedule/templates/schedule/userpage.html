@@ -21,8 +21,33 @@
 </head>
 
 <body>
+
 <center>
-    <h1>Hi {{user.name}}</h1>
+    <h1>Hi {{user.name}}</h1><br>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <input id="detail" type="text" name="detail" placeholder="detail" required>
+        <input id="start_time" type="number"  name="start_time" min="0" max="23" step="1"  placeholder="start_time">
+        <input id="how_many_hour" type="number"  name="end_time" min="1" max="24" step="1"
+        placeholder="how_many_hour">
+        <select id="day_selecter" name="day_selecter">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select> <br>
+
+        <input type="submit" value="New">
+    </form>
+
+
+
+
     <table id='table_time'>
         <!-- time -->
         <tr id ='time'>

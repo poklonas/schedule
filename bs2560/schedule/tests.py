@@ -133,7 +133,6 @@ class ScheduleUserPageTest(TestCase):
         expected_html = render_to_string('schedule/userpage.html')
         list_of_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         for day in list_of_day:
-            print(day)
             self.assertIn(day, self.remove_csrf(expected_html))
         
 
