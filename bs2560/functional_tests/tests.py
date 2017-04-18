@@ -113,9 +113,18 @@ class NewVisitorTest(LiveServerTestCase):
         start_time_selec = self.browser.find_element_by_id('start_time')
         how_many_hour = self.browser.find_element_by_id('how_many_hour')
 
-        # he select time 1.00 and 3.00 and fill detail is "Coding",and row of monday
+        # he select time 1.00 and 3.00 hr and fill detail is "Coding",and row of monday
+        detail_inputbox.send_keys('Coding')
+        day_inputbox.send_keys('Monday')
+        start_time_selec.send_keys('1.00')
+        how_many_hour.send_keys('3')
         # then he click button to commit
+        how_many_hour.send_keys(Keys.ENTER)
+
+        time.sleep(0.5)
         # that page refresh to same page
+        # the title page is "user_page"
+        self.assertIn('user_page', self.browser.title)
 
         # he saw Coding in row monday colum 1.00 and 3.00 
 

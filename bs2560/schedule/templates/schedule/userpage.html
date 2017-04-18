@@ -29,9 +29,9 @@
     <form method="post">
         {% csrf_token %}
         <input id="detail" type="text" name="detail" placeholder="detail" required>
-        <input id="start_time" type="number"  name="start_time" min="0" max="23" step="1"  placeholder="start_time">
+        <input id="start_time" type="number"  name="start_time" min="0" max="23" step="1"  placeholder="start_time" required>
         <input id="how_many_hour" type="number"  name="end_time" min="1" max="24" step="1"
-        placeholder="how_many_hour">
+        placeholder="how_many_hour" required>
         <select id="day_selecter" name="day_selecter">
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
@@ -44,7 +44,6 @@
 
         <input type="submit" value="New">
     </form>
-
 
 
 
