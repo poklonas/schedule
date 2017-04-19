@@ -150,3 +150,6 @@ class UserModelTest(TestCase):
         self.assertEqual(first_save_user.name, 'first')
         self.assertEqual(second_save_user.name, 'second')
       
+class ActivityModelTest(TestCase):
+
+    pass

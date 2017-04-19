@@ -144,6 +144,7 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(0.5)
         # he saw Coding in row monday colum 1.00 and 3.00 
         self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 1))
+        self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 2))
         self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 3))
 
         # he saw a link back to main menu in top left
