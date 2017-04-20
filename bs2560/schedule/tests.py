@@ -186,5 +186,18 @@ class UserModelTest(TestCase):
         self.assertEqual(second_save_user.name, 'second')
       
 class ActivityModelTest(TestCase):
-
-    pass
+    
+    def test_saving_and_retrieving_activity(self):
+        user = User(name='user')
+        user.save()
+        activity_one = Activity(user=user, detail='first_activity', time=1, day='Monday')
+        activity_one.save()
+        activity_two = Activity(user=user, detail='second_activity', time=1, day='Friday')
+        activity_two.save()
+        all_activity = Activity.objects.all()
+        self.assertEqual(all_activity.count(), 2)
+        first_activity = all_activity[0]
+        second_activity = all_activity[1]
+        self.assertEqual(first_activity.detail, 'first_activity')
+        self.assertEqual(second_activity.detail, 'second_activity')
+        
