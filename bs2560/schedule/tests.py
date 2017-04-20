@@ -135,7 +135,7 @@ class ScheduleUserPageTest(TestCase):
         for day in list_of_day:
             self.assertIn(day, self.remove_csrf(expected_html))
 
-    def test_user_page_make_new_activity(self):
+    def test_user_page_can_save_a_POST_request(self):
         user = User(name='user_one')
         user.save()
         request = HttpRequest()
@@ -148,7 +148,27 @@ class ScheduleUserPageTest(TestCase):
         reponse = user_page(request, user_id=user.pk)
         all_activity = Activity.objects.all()
         self.assertEqual(all_activity.count(), how_many_hour)
-        
+
+    def test_user_page_rediracts_after_POST(self):
+        user = User(name='user_one')
+        user.save()
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['detail'] = 'user_one'
+        request.POST['start_time'] = 2
+        how_many_hour = 5
+        request.POST['how_many_hour'] = how_many_hour
+        request.POST['day_selecter'] = 'Monday'
+        response = user_page(request, user_id=user.pk)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/'+str(user.pk))
+
+    def test_user_page_only_save_activity_when_necessary(self):
+        user = User(name='user_one')
+        user.save()
+        request = HttpRequest()
+        user_page(request, user_id=user.pk)
+        self.assertEqual(Activity.objects.count(), 0)
 
 
 class UserModelTest(TestCase):
