@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
 from schedule.views import *
-from schedule.models import User
+from schedule.models import *
 
 import re
 
@@ -134,7 +134,22 @@ class ScheduleUserPageTest(TestCase):
         list_of_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         for day in list_of_day:
             self.assertIn(day, self.remove_csrf(expected_html))
+
+    def test_user_page_make_new_activity(self):
+        user = User(name='user_one')
+        user.save()
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['detail'] = 'user_one'
+        request.POST['start_time'] = 2
+        how_many_hour = 5
+        request.POST['how_many_hour'] = how_many_hour
+        request.POST['day_selecter'] = 'Monday'
+        reponse = user_page(request, user_id=user.pk)
+        all_activity = Activity.objects.all()
+        self.assertEqual(all_activity.count(), how_many_hour)
         
+
 
 class UserModelTest(TestCase):
 
