@@ -14,8 +14,8 @@ def home_page(request):
 def user_page(request, user_id):
     user = User.objects.get(pk=user_id)
     if request.method == 'POST':
-        start_time = request.POST['start_time']
-        how_many_hour = request.POST['how_many_hour']
+        start_time = int(request.POST['start_time'])
+        how_many_hour = int(request.POST['how_many_hour'])
         max_time = start_time + how_many_hour
         for count_time in range(start_time, max_time):
             new_activity = Activity.objects.create(user=user,
@@ -23,5 +23,5 @@ def user_page(request, user_id):
                                                    time=count_time,
                                                    day=request.POST['day_selecter'])
             new_activity.save()
-        return redirect('/%d'%user_id)
+        return redirect('/%d'%user.pk)
     return render(request, 'schedule/userpage.html', {'user': user})

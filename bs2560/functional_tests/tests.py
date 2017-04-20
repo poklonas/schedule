@@ -131,8 +131,8 @@ class NewVisitorTest(LiveServerTestCase):
         # he select time 1.00 and 3.00 hr and fill detail is "Coding",and row of monday
         detail_inputbox.send_keys('Coding')
         day_inputbox.send_keys('Monday')
-        start_time_selec.send_keys('1.00')
-        how_many_hour.send_keys('3')
+        start_time_selec.send_keys(1)
+        how_many_hour.send_keys(3)
         # then he click button to commit
         how_many_hour.send_keys(Keys.ENTER)
 
