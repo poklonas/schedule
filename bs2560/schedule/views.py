@@ -38,8 +38,14 @@ def user_page(request, user_id):
             activity_filter = Activity.objects.get(user=user,
                                                    time=count_time,
                                                    day=day_in,)
+            if(activity_filter.connected): # if True that mean it should remove old activity first
+                reset_same_time_activity_reverse(user_id, count_time, day_in)
+
+            if(activity_filter.detail != ""): # if That True that mean it find head of activity
+                reset_same_time_activity_forward(user_id, count_time, day_in)
+
             activity_filter.setDetail(detail_in)
-            if(count_time == start_time):
+            if(count_time == start_time): # if that is first set it head for make colum span
                 activity_filter.set_time_left(how_many_hour)
                 activity_filter.set_connected(False)
             else:
@@ -49,3 +55,33 @@ def user_page(request, user_id):
             activity_filter.save()
         return redirect('/%d'%user.pk)
     return render(request, 'schedule/userpage.html', {'user': user})
+
+def reset_same_time_activity_reverse(user_id, time, day): #count-down to reset 
+    user = User.objects.get(pk=user_id)
+    extend_activity = Activity.objects.get(user=user, time=time, day=day)
+    extend_activity.setDetail("")
+    extend_activity.set_time_left(0)
+    if(extend_activity.connected): # first must be True
+        extend_activity.set_connected(False)
+        extend_activity.save()
+        if(time > 0):
+            time -= 1
+            reset_same_time_activity_reverse(user_id, time, day)
+    else:
+        extend_activity.set_connected(False)
+        extend_activity.save()
+
+def reset_same_time_activity_forward(user_id, time, day): # count-up to reset by time-left
+    user = User.objects.get(pk=user_id)
+    extend_activity = Activity.objects.get(user=user, time=time, day=day)
+    extend_activity.setDetail("")
+    extend_activity.set_time_left(0)
+    if(extend_activity.connected): # first must be False 
+        extend_activity.set_connected(False)
+        extend_activity.save()
+    else: 
+        extend_activity.set_connected(False)
+        extend_activity.save()
+        if(time < 23):
+            time += 1
+            reset_same_time_activity_forward(user_id, time, day)

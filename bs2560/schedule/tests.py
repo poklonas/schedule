@@ -178,6 +178,37 @@ class ScheduleUserPageTest(TestCase):
         user_page(request, user_id=user.pk)
         self.assertEqual(Activity.objects.count(), 168)
 
+    def test_user_page_remove_same_time_activity_when_it_same_time(self):
+        user = User(name='user_one')
+        user.save()
+        self.set_activity_each_day_for_new_user(user.pk)
+        exten_activity = Activity.objects.get(time=1, 
+                                              day='Monday')
+        exten_activity.setDetail('new')
+        exten_activity.set_time_left(5)
+        exten_activity.set_connected(False)
+        exten_activity.save()
+        for count in range(1, 5):
+            time_left = 5 - count 
+            time = count + 1
+            exten_activity = Activity.objects.get(time=time, 
+                                                  day='Monday')
+            exten_activity.setDetail('new')
+            exten_activity.set_time_left(time_left)
+            exten_activity.set_connected(True)
+            exten_activity.save()
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['detail'] = 'user_one'
+        request.POST['start_time'] = 2
+        how_many_hour = 5
+        request.POST['how_many_hour'] = how_many_hour
+        request.POST['day_selecter'] = 'Monday'
+        response = user_page(request, user_id=user.pk)
+        extend_colum = Activity.objects.get(user=user, day='Monday', time=1)
+        self.assertEqual('', extend_colum.detail)
+
+
 
 class UserModelTest(TestCase):
 
@@ -208,4 +239,3 @@ class ActivityModelTest(TestCase):
         second_activity = all_activity[1]
         self.assertEqual(first_activity.detail, 'first_activity')
         self.assertEqual(second_activity.detail, 'second_activity')
-        
