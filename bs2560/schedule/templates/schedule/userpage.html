@@ -9,6 +9,7 @@
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
+            text-align: center;
         } 
         td{
             width:3%;
@@ -84,178 +85,85 @@
         <tr>
             <th>Monday</th>
                 {% for activity in user.activity_set.all %}
-                    {% if activity.day == 'Monday' and activity.time == forloop.counter0 %}
-                           <td>{{ activity.detail }}</td>
+                    {% if activity.day == 'Monday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
 
         <tr>
             <th>Tuesday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Tuesday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
             <th>Wednesday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Wednesday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
             <th>Thursday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Thursday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
             <th>Friday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Friday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
             <th>Saturday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Saturday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
             <th>Sunday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Sunday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                <td colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
         </tr>
     </table>
 </center>

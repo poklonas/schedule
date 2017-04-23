@@ -8,7 +8,9 @@ class User(models.Model):
 
 class Activity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    detail = models.CharField(max_length=100)
+    time_left = models.IntegerField(default=0)
+    connected = models.BooleanField(default=False)
+    detail = models.CharField(max_length=100, default="")
     time = models.IntegerField(default=0)
     day =  models.CharField(max_length=15, default='Monday')
 
@@ -17,3 +19,10 @@ class Activity(models.Model):
 
     def setDetail(self, detail_text):
     	self.detail = detail_text
+
+    def set_time_left(self, time):
+    	self.time_left = time
+
+    def set_connected(self, boolean_in):
+    	self.connected = boolean_in
+

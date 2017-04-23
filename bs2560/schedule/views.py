@@ -23,7 +23,6 @@ def generate_activity_for_first_time_of_user(day, user_id):
     user = User.objects.get(pk=user_id)
     for count in range(0, 24):
         Activity.objects.create(user=user,
-                                detail="",
                                 time=count,
                                 day=day)
 
@@ -36,8 +35,17 @@ def user_page(request, user_id):
         day_in = request.POST['day_selecter']
         detail_in = request.POST['detail']
         for count_time in range(start_time, max_time):
-            activity_filter = Activity.objects.get(user=user, time=count_time, day=day_in)
+            activity_filter = Activity.objects.get(user=user,
+                                                   time=count_time,
+                                                   day=day_in,)
             activity_filter.setDetail(detail_in)
+            if(count_time == start_time):
+                activity_filter.set_time_left(how_many_hour)
+                activity_filter.set_connected(False)
+            else:
+                activity_filter.set_time_left(how_many_hour)
+                activity_filter.set_connected(True)
+            how_many_hour = how_many_hour - 1
             activity_filter.save()
         return redirect('/%d'%user.pk)
     return render(request, 'schedule/userpage.html', {'user': user})
