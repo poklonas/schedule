@@ -14,3 +14,6 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.detail
+
+    def setDetail(self, detail_text):
+    	self.detail = detail_text

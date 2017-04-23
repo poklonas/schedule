@@ -123,9 +123,25 @@ class ScheduleUserPageTest(TestCase):
         for day in list_of_day:
             self.assertIn(day, self.remove_csrf(expected_html))
 
+    def set_activity_each_day_for_new_user(self, user_id):
+    	self.make_activity_each_time_for_a_day( "Monday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Tuesday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Wednesday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Thursday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Friday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Saturday" ,user_id)
+    	self.make_activity_each_time_for_a_day( "Sunday" ,user_id)
+
+    def make_activity_each_time_for_a_day(self, day_in, user_id):
+    	user = User.objects.get(pk=user_id)
+    	for count in range(0, 24):
+    		Activity.objects.create(user=user, detail="", time=count, day=day_in).save()
+
+
     def test_user_page_can_save_a_POST_request(self):
         user = User(name='user_one')
         user.save()
+        self.set_activity_each_day_for_new_user(user.pk)
         request = HttpRequest()
         request.method = 'POST'
         request.POST['detail'] = 'user_one'
@@ -134,12 +150,15 @@ class ScheduleUserPageTest(TestCase):
         request.POST['how_many_hour'] = how_many_hour
         request.POST['day_selecter'] = 'Monday'
         reponse = user_page(request, user_id=user.pk)
-        all_activity = Activity.objects.all()
-        self.assertEqual(all_activity.count(), how_many_hour)
+        for count_time in range(2, 7):
+            self.assertEqual(Activity.objects.get(user=user, day='Monday', 
+            	                                  time=count_time).detail,
+            	                                  'user_one')
 
     def test_user_page_rediracts_after_POST(self):
         user = User(name='user_one')
         user.save()
+        self.set_activity_each_day_for_new_user(user.pk)
         request = HttpRequest()
         request.method = 'POST'
         request.POST['detail'] = 'user_one'
@@ -154,9 +173,10 @@ class ScheduleUserPageTest(TestCase):
     def test_user_page_only_save_activity_when_necessary(self):
         user = User(name='user_one')
         user.save()
+        self.set_activity_each_day_for_new_user(user.pk)
         request = HttpRequest()
         user_page(request, user_id=user.pk)
-        self.assertEqual(Activity.objects.count(), 0)
+        self.assertEqual(Activity.objects.count(), 168)
 
 
 class UserModelTest(TestCase):

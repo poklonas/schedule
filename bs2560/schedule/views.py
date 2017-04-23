@@ -33,11 +33,11 @@ def user_page(request, user_id):
         start_time = int(request.POST['start_time'])
         how_many_hour = int(request.POST['how_many_hour'])
         max_time = start_time + how_many_hour
+        day_in = request.POST['day_selecter']
+        detail_in = request.POST['detail']
         for count_time in range(start_time, max_time):
-            new_activity = Activity.objects.create(user=user,
-                                                   detail=request.POST['detail'],
-                                                   time=count_time,
-                                                   day=request.POST['day_selecter'])
-            new_activity.save()
+            activity_filter = Activity.objects.get(user=user, time=count_time, day=day_in)
+            activity_filter.setDetail(detail_in)
+            activity_filter.save()
         return redirect('/%d'%user.pk)
     return render(request, 'schedule/userpage.html', {'user': user})
