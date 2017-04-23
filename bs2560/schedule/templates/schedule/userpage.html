@@ -81,30 +81,11 @@
         <!-- day -->
         <tr>
             <th>Monday</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+                {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Monday' and activity.time == forloop.counter0 %}
+                           <td>{{ activity.detail }}</td>
+                    {% endif%}
+                {% endfor %}
         </tr>
 
         <tr>
@@ -274,7 +255,6 @@
             <td></td>
             <td></td>
         </tr>
-
     </table>
 </center>
 </body>

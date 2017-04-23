@@ -99,10 +99,6 @@ class ScheduleUserPageTest(TestCase):
                          self.remove_csrf(expected_html))
 
     def test_user_page_has_table_element_id_table_time(self):
-        user = User(name='')
-        user.save()
-        request = HttpRequest()
-        response = user_page(request, user_id=user.pk)
         expected_html = render_to_string('schedule/userpage.html')
         self.assertIn("<table id='table_time'>", self.remove_csrf(expected_html))
 
@@ -115,10 +111,6 @@ class ScheduleUserPageTest(TestCase):
         self.assertIn("<tr id ='time'>", self.remove_csrf(expected_html))
 
     def test_user_page_has_colum_for_show_all_time(self):
-        user = User(name='')
-        user.save()
-        request = HttpRequest()
-        response = user_page(request, user_id=user.pk)
         expected_html = render_to_string('schedule/userpage.html')
         for count in range(0, 24):
             if(count < 10):
@@ -126,10 +118,6 @@ class ScheduleUserPageTest(TestCase):
             self.assertIn(str(count), self.remove_csrf(expected_html))
 
     def test_user_page_has_rows_for_show_any_day(self):
-        user = User(name='')
-        user.save()
-        request = HttpRequest()
-        response = user_page(request, user_id=user.pk)
         expected_html = render_to_string('schedule/userpage.html')
         list_of_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         for day in list_of_day:
