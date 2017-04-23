@@ -142,9 +142,23 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('user_page', self.browser.title)
 
         time.sleep(0.5)
-        # he saw Coding in row monday colum 1.00 and 3.00 
+        # he saw Coding in row monday colum 1.00 to 3.00 
         self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 1))
-
+        # oh that was wrong time ! he want to change it  he fill imformation agian but time change to 2 to 4
+        detail_inputbox = self.browser.find_element_by_id('detail')
+        day_inputbox = self.browser.find_element_by_id('day_selecter')
+        start_time_selec = self.browser.find_element_by_id('start_time')
+        how_many_hour = self.browser.find_element_by_id('how_many_hour')
+        detail_inputbox.send_keys('Coding')
+        day_inputbox.send_keys('Monday')
+        start_time_selec.send_keys(2)
+        how_many_hour.send_keys(3)
+        how_many_hour.send_keys(Keys.ENTER)
+        time.sleep(0.5)
+        # now he daw Coding in row monday colum 2 to 4 and cant see in 1
+        self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 2))
+        self.assertNotIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 1))
+ 
         # he saw a link back to main menu in top left
         link_back = self.browser.find_element_by_link_text('Back to main menu')
 
