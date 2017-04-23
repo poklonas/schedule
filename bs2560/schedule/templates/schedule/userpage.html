@@ -28,8 +28,11 @@
 <a href="/">Back to main menu</a>
 
 <center>
-    <h1>Hi {{user.name}}</h1><br>
+    <h1>Hi {{user.name}}</h1>
 
+    {% if error_messege %}
+        <p><strong>{{error_messege}}</strong></p>
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}

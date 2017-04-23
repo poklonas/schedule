@@ -34,6 +34,8 @@ def user_page(request, user_id):
         max_time = start_time + how_many_hour
         day_in = request.POST['day_selecter']
         detail_in = request.POST['detail']
+        if(max_time > 24):
+            return render(request, 'schedule/userpage.html', {'user': user, 'error_messege':"Wrong Time"})
         for count_time in range(start_time, max_time):
             activity_filter = Activity.objects.get(user=user,
                                                    time=count_time,
