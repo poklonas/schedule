@@ -1,24 +1,32 @@
 <html>
 <head>
 	<title>schedule</title>
+	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
 </head>
 
 <body>
 <center>
+<div class="container">
+ <div class="jumbotron">
     <h1>Hi , Who are you ?</h1>
-    <br><br><br>
-	<table id="user_list">
-        {% for user in user_list %}
-        	<tr><td><a id='{{user.pk}}' href='/{{user.pk}}')>{{ user.name }}</a><td></tr>
-        {% endfor %}
-    </table>
-    <br><br><br>
-	<form method="post">
-        {% csrf_token %}
-		<input id="new_user" type="text" name="user_name" placeholder="user name" required>
-		<input type="submit" value="New User">
-    </form>
+    <br>
+    <div class="list-group" id="user_list">
+    {% for user in user_list %}
+        <a id='{{user.pk}}' href='/{{user.pk}}' class="list-group-item">{{ user.name }}</a>
+    {% endfor %}
+    </div>
+</div>
+</div>
 
+<div class="container">
+	<form method="post" class="form-inline">
+        {% csrf_token %}
+		 <input class="form-control" id="new_user" type="text" name="user_name" placeholder="user name" required>
+		<input class="btn btn-success" type="submit" value="New User">
+    </form>
+    </div>
+</div>
 </center>
 </body>
 </html>

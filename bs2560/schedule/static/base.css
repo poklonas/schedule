@@ -1,0 +1,42 @@
+body{
+      background-color: Azure  ;
+}
+
+table{
+      width: 100%;
+      height: 80%;
+}
+table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      text-align: center;
+} 
+td{
+      width:3%;
+      height: 12%;
+      overflow:scroll;
+}
+th.head{
+      width :5%;
+      height: 12%;
+}
+
+#day{
+      background-color: LightBlue   ;
+}
+
+#time{
+      background-color: MediumAquaMarine     ;
+}
+
+#main_table{
+      background-color: MediumSpringGreen     ;  
+}
+
+#activity{
+      background-color: PaleTurquoise      ;  
+}
+
+#non_activity{
+      background-color: Linen ;
+}
