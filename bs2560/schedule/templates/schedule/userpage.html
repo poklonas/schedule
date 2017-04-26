@@ -95,11 +95,14 @@
             <th id="day">Tuesday</th>
                {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Tuesday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
@@ -108,11 +111,14 @@
             <th id="day">Wednesday</th>
                {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Wednesday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
@@ -121,11 +127,14 @@
             <th id="day">Thursday</th>
                {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Thursday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
@@ -134,11 +143,14 @@
             <th id="day">Friday</th>
               {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Friday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
@@ -147,11 +159,14 @@
             <th id="day">Saturday</th>
               {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Saturday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
@@ -160,11 +175,14 @@
             <th id="day">Sunday</th>
               {% for activity in user.activity_set.all %}
                     {% if activity.day == 'Sunday' %}
+                           {% if activity.connected %}
+                           {% else %}
                                 {% if activity.time_left > 1%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% endif %}
+                           {% endif %}
                     {% endif%}
                 {% endfor %}
         </tr>
