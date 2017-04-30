@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>confirm_add</title>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+<div class="jumbotron">
+{% for time in collide_time %}
+   {% if forloop.first %}
+    	<center>
+    	If you want to add this list<br>
+    	System will delete that list activity below<br>
+    	Are You sure ? <br>
+   		</center>
+   {% endif %}
+   {% for activity in user.activity_set.all %}
+      {% if activity.day == day and activity.time == time %}
+      <div class="container">
+       <div class="well well-sm">
+          Day is : {{activity.day}}  <br>
+          Start Time : {{activity.time}}  <br>
+          End time : {{activity.max_time}} <br>
+          Detail is : {{activity.detail}} <br>
+        </div>
+       </div>
+      	{% endif %}
+   	{% endfor %}
+{% empty %}
+    	<center>
+    	Are You sure ? <br>
+   		</center>
+{% endfor %}
+    	<form action="{% url 'schedule:user_page' user_id=user.pk %}" method="POST">
+    	    <div class="well well-sm" style="pointer-events:none">
+    	    	{% csrf_token %}
+    	    	This is new Activity <br>
+            	Detail : <input id="detail" type="text" name="detail" value={{detail_in}} ><br>
+            	Day :<input id="day_selecter" name="day_selecter"  value={{day}} ><br>
+            	Start Time :<input id="start_time" type="number"  name="start_time" value={{start}} ><br>
+            	Spend Time :<input id="how_many_hour" type="number"  name="how_many_hour"
+            	value={{how_many_hour}} ><br>
+            </div>
+    			<input type="submit" class="btn-danger" value="Yes"></input> 
+    	</form>
+    	<form action="{% url 'schedule:user_page' user_id=user.pk %}">
+    			<input type="submit" class="btn-primary" value="No"></input>
+    	</form>
+</div>
+</div>
+</body>
+</html>

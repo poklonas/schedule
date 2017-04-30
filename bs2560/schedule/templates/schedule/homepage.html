@@ -13,7 +13,7 @@
     <br>
     <div class="list-group" id="user_list">
     {% for user in user_list %}
-        <a id='{{user.pk}}' href='/{{user.pk}}' class="list-group-item">{{ user.name }}</a>
+        <a id='{{user.pk}}' href="{% url 'schedule:user_page' user_id=user.pk %}" class="list-group-item">{{ user.name }}</a>
     {% endfor %}
     </div>
 </div>

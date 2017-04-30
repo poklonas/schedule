@@ -9,7 +9,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Back to main menu</a>
+      <a class="navbar-brand" href="{% url 'schedule:home_page' %}">Back to main menu</a>
       </div>
     </ul>
   </div>
@@ -24,7 +24,7 @@
       </div>
     {% endif %}
  </div>
-    <form method="post" class="form-inline">
+    <form action="{%url 'schedule:confirm_delete' user_id=user.pk %}" method="POST" class="form-inline">
         {% csrf_token %}
         <input class="form-control" id="detail" type="text" name="detail" placeholder="detail" required>
         <input class="form-control" id="start_time" type="number"  name="start_time" min="0" max="23" step="1"  placeholder="start_time" required>
@@ -39,7 +39,6 @@
             <option value="Saturday">Saturday</option>
             <option value="Sunday">Sunday</option>
         </select>
-
         <input class="btn btn-success" type="submit" value="New">
     </form>
 
@@ -81,7 +80,7 @@
                     {% if activity.day == 'Monday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -97,7 +96,7 @@
                     {% if activity.day == 'Tuesday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -113,7 +112,7 @@
                     {% if activity.day == 'Wednesday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -129,7 +128,7 @@
                     {% if activity.day == 'Thursday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -145,7 +144,7 @@
                     {% if activity.day == 'Friday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -161,7 +160,7 @@
                     {% if activity.day == 'Saturday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
@@ -177,7 +176,7 @@
                     {% if activity.day == 'Sunday' %}
                            {% if activity.connected %}
                            {% else %}
-                                {% if activity.time_left > 1%}
+                                {% if activity.time_left > 0%}
                                     <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
                                 {% else %}
                                     <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>

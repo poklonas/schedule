@@ -26,3 +26,6 @@ class Activity(models.Model):
     def set_connected(self, boolean_in):
     	self.connected = boolean_in
 
+    def max_time(self):
+    	return int(self.time) + int(self.time_left)
+
