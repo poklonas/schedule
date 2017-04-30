@@ -17,7 +17,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def check_for_row_in_user_list_table(self, name):
         table = self.browser.find_element_by_id('user_list')
-        rows = table.find_elements_by_tag_name('tr')
+        rows = table.find_elements_by_tag_name('a')
         self.assertIn(name, [row.text for row in rows])
 
     def find_text_of_row_and_time_of_day_in_table(self, day, time):
@@ -171,10 +171,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
         how_many_hour.send_keys(3)
         how_many_hour.send_keys(Keys.ENTER)
         time.sleep(0.5)
-        #but it ok he show it nothing change , but have a word " Wrong Time " in center 
+        #but it ok he show it nothing change , but have a word "Error! : Your select time after 23.00 It cant , please Try another time" in center 
         center_text = self.browser.find_element_by_tag_name('center')
         head_text =center_text.find_elements_by_tag_name('strong')
-        self.assertIn("Wrong Time", [row.text for row in head_text])
+        self.assertIn("Error! : Your select time after 23.00 It cant , please Try another time", [row.text for row in head_text])
 
         # he dont care it and ,he saw a link back to main menu in top left
         link_back = self.browser.find_element_by_link_text('Back to main menu')
