@@ -33,7 +33,7 @@
     	Are You sure ? <br>
    		</center>
 {% endfor %}
-    	<form action="{% url 'schedule:user_page' user_id=user.pk %}" method="POST">
+    	<form id="confirm" method="POST">
     	    <div class="well well-sm" style="pointer-events:none">
     	    	{% csrf_token %}
     	    	This is new Activity <br>
@@ -43,10 +43,8 @@
             	Spend Time :<input id="how_many_hour" type="number"  name="how_many_hour"
             	value={{how_many_hour}} ><br>
             </div>
-    			<input type="submit" class="btn-danger" value="Yes"></input> 
-    	</form>
-    	<form action="{% url 'schedule:user_page' user_id=user.pk %}">
-    			<input type="submit" class="btn-primary" value="No"></input>
+    			<input type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input> 
+    			<input type="submit" class="btn-danger" value="No" formaction="{% url 'schedule:user_page' user_id=user.pk %}" ></input>
     	</form>
 </div>
 </div>
