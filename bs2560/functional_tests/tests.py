@@ -156,6 +156,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
         how_many_hour.send_keys(3)
         how_many_hour.send_keys(Keys.ENTER)
         time.sleep(0.5)
+        # browser go to confirm page that show list of collide activity he click yes button to confirm it
+        self.assertIn('confirm_add', self.browser.title)
+        button_confirm = self.browser.find_element_by_id('yes_input')
+        button_confirm.send_keys(Keys.ENTER)
+        time.sleep(0.5)
+        
         # now he saw Coding in row monday colum 2 to 4 and cant see in 1
         self.assertIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 2))
         self.assertNotIn('Coding', self.find_text_of_row_and_time_of_day_in_table('Monday', 1))

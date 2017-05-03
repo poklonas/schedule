@@ -149,7 +149,7 @@ class ScheduleUserPageTest(TestCase):
         how_many_hour = 5
         request.POST['how_many_hour'] = how_many_hour
         request.POST['day_selecter'] = 'Monday'
-        reponse = user_page(request, user_id=user.pk)
+        reponse = add_new_activity(request, user_id=user.pk)
         for count_time in range(2, 7):
             self.assertEqual(Activity.objects.get(user=user, day='Monday', 
             	                                  time=count_time).detail,
@@ -166,7 +166,7 @@ class ScheduleUserPageTest(TestCase):
         how_many_hour = 5
         request.POST['how_many_hour'] = how_many_hour
         request.POST['day_selecter'] = 'Monday'
-        response = user_page(request, user_id=user.pk)
+        response = add_new_activity(request, user_id=user.pk)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/'+str(user.pk))
 
@@ -204,7 +204,7 @@ class ScheduleUserPageTest(TestCase):
         how_many_hour = 5
         request.POST['how_many_hour'] = how_many_hour
         request.POST['day_selecter'] = 'Monday'
-        response = user_page(request, user_id=user.pk)
+        response = add_new_activity(request, user_id=user.pk)
         extend_colum = Activity.objects.get(user=user, day='Monday', time=1)
         self.assertEqual('', extend_colum.detail)
 

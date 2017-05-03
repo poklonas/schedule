@@ -6,6 +6,7 @@ from django.urls import reverse
 ''' if this page has value from form it will creat a user object 
 	and redirect to it self '''
 def home_page(request):
+    user_list = User.objects.all()
     if request.method == 'POST': 
         user = User.objects.create(name=request.POST['user_name'])
         user.save()
@@ -17,7 +18,6 @@ def home_page(request):
         generate_activity_for_first_time_of_user('Saturday', user.pk)
         generate_activity_for_first_time_of_user('Sunday', user.pk)
         return redirect(reverse('schedule:home_page'))
-    user_list = User.objects.all()
     return render(request, 'schedule/homepage.html', {'user_list': user_list})
 
 def generate_activity_for_first_time_of_user(day, user_id):

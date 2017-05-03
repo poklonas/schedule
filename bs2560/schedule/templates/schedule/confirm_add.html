@@ -43,7 +43,7 @@
             	Spend Time :<input id="how_many_hour" type="number"  name="how_many_hour"
             	value={{how_many_hour}} ><br>
             </div>
-    			<input type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input> 
+    			<input id="yes_input" type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input> 
     			<input type="submit" class="btn-danger" value="No" formaction="{% url 'schedule:user_page' user_id=user.pk %}" ></input>
     	</form>
 </div>
