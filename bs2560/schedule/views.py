@@ -113,6 +113,8 @@ def confirm_delete(request, user_id):
     day_in = request.POST['day_selecter']
     detail_in = request.POST['detail']
     collide = check_has_same_time(user_id, start_time, day_in, how_many_hour)
+    if(collide == []):
+        return add_new_activity(request, user_id)
     return render(request, 'schedule/confirm_add.html',{'user': user, 
                                                         'collide_time':collide,
                                                         'day':day_in,
