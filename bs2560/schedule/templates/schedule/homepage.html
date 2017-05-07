@@ -1,12 +1,28 @@
 <html>
 <head>
 	<title>schedule</title>
+	{% load static %}
 	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="/static/base.css" rel="stylesheet">
 </head>
 
 <body>
+
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Schedule</a>
+    </div>
+  	<button type="button" class="btn btn-info navbar-btn navbar-right" data-toggle="modal" data-target="#about">About this app</button>
+  	<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#how_to">How to use this app?</button>
+  </div>
+  </div>
+</nav>
+
 <center>
+
 <div class="container">
  <div class="jumbotron">
     <h1>Hi , Who are you ?</h1>
@@ -28,5 +44,63 @@
     </div>
 </div>
 </center>
+
+<!-- Modal -->
+  <div class="modal fade" id="about" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">This is schedule app</h4>
+        </div>
+        <div class="modal-body">
+          <p>In this schedule app. you can make your user in any name. Then you can manage activity in your id.</p><br>
+          <p>Want add new activity ?. it very easy just fill some information then click new. Oh you activity time is colliding ?. Don't worry we will let you confirm that again before replace it</p><br>
+          <p>I wish you will love it !</p><br>
+          <p>last update : 7/5/2560</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" onclick="location.href='https://github.com/poklonas/schedule'" >GitHub</button>
+          <button type="button" class="btn btn-default" onclick="location.href='https://a5810164.blogspot.com'" >MyBlog</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- Modal -->
+  <div class="modal fade" id="how_to" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">How to use this app ?</h4>
+        </div>
+        <div class="modal-body">
+          <p>First : make new your user by fill user-name and then click ' New User ' button then wait a second</p><br>
+          <img src="{% static "schedule/01.png" %}" alt="01" style="width: 50%; height: 10%"/>
+          <p>Second : you will see you user-name in center browser click to enter you table time</p>
+          <img src="{% static "schedule/02.png" %}" alt="02" style="width: 100%; height: 40%"/>
+          <p>Thrid : You come to user page. and want to add activity  you must fill imformation look like this and click new button. pythic is name of activity and 6 mean start at 6.00 am and 2 mean activity has spend 2 hr . last monday is a day of this activity</p>
+ 		  <img src="{% static "schedule/03.png" %}" alt="03" style="width: 100%; height: 40%"/>
+ 		  <p>Last : Then success ! the new activity is appear</p>
+ 		  <img src="{% static "schedule/04.png" %}" alt="04" style="width: 100%; height: 20%"/>
+ 		  <p>If you add new activity with collide time you will see page show like this. and you can confirm or cancle. if you confirm the activity will be replaced with the new activity !</p>
+ 		   <img src="{% static "schedule/05.png" %}" alt="05" style="width: 100%; height: 40%"/>
+ 		   <img src="{% static "schedule/06.png" %}" alt="06" style="width: 100%; height: 20%"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 </body>
 </html>
