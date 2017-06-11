@@ -1,8 +1,9 @@
 <html>
 <head>
+    {% load static %}
     <title>confirm_add</title>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
 </head>
 
 <body>
@@ -34,17 +35,35 @@
    		</center>
 {% endfor %}
     	<form id="confirm" method="POST">
-    	    <div class="well well-sm" style="pointer-events:none">
+    	    <div class="well well-sm" style="pointer-events:none;">
     	    	{% csrf_token %}
-    	    	This is new Activity <br>
-            	Detail : <input id="detail" type="text" name="detail" value={{detail_in}} ><br>
-            	Day :<input id="day_selecter" name="day_selecter"  value={{day}} ><br>
-            	Start Time :<input id="start_time" type="number"  name="start_time" value={{start}} ><br>
-            	Spend Time :<input id="how_many_hour" type="number"  name="how_many_hour"
-            	value={{how_many_hour}} ><br>
+    	    	This is new Activity
+    	    	    <div class="form-group">
+    	    	        <label for="detail">Detail : </label>
+            	        <input class="form-control input-sm" id="detail" type="text" name="detail" value={{detail_in}}>
+            	    </div>
+
+            	    <div class="form-group">
+    	    	        <label for="day_selecter">Day : </label>
+                    	<input class="form-control input-sm" id="day_selecter" name="day_selecter"  value={{day}} >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start_time">Start Time : </label>
+            	        <input class="form-control input-sm" id="start_time" type="number"  name="start_time" value={{start}} >
+            	    </div>
+
+            	    <div class="form-group">
+            	        <label for="how_many_hour">Spend Time : </label>
+            	        <input class="form-control input-sm" id="how_many_hour" type="number"  name="how_many_hour"
+            	        value={{how_many_hour}}>
+            	   </div>
             </div>
-    			<input id="yes_input" type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input> 
-    			<input type="submit" class="btn-danger" value="No" formaction="{% url 'schedule:user_page' user_id=user.pk %}" ></input>
+
+            <center>
+    			<input type="submit" style="width:40%;height:15%" id="yes_input" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input>
+    			<input type="submit" style="width:40%;height:15%" id="no_input" class="btn-danger" value="No" formaction="{% url 'schedule:user_page' user_id=user.pk %}" ></input>
+    	    </center>
     	</form>
 </div>
 </div>
