@@ -8,19 +8,24 @@ from django.contrib.auth import authenticate, login, logout
 
 ''' if this page has value from form it will creat a user object
 	and redirect to it self '''
+
+
 def home_page(request):
-    if request.method == 'POST':
-        email = request.POST['login_email']
-        password = request.POST['login_password']
-        user_name = User_id.objects.get(email=email.lower()).username
-        user = authenticate(username=user_name, password=password)
-        if user is not None:
-            user_pk = (User.objects.get(mail=email)).pk
-            login(request, user)
-            return redirect(reverse('schedule:user_page', kwargs={'user_id':user_pk}))
-        else:
-            return redirect(reverse('schedule:user_page', kwargs={'error_messege_login':"email or password was worng"}))
-    return render(request, 'schedule/homepage.html')
+    if request.user.is_authenticated:
+        return render(request, 'schedule/logoutpage.html')
+    else:
+        if request.method == 'POST':
+            email = request.POST['login_email']
+            password = request.POST['login_password']
+            user_name = User_id.objects.get(email=email.lower()).username
+            user = authenticate(username=user_name, password=password)
+            if user is not None:
+                user_pk = (User.objects.get(mail=email)).pk
+                login(request, user)
+                return redirect(reverse('schedule:user_page', kwargs={'user_id':user_pk}))
+            else:
+                return redirect(reverse('schedule:user_page', kwargs={'error_messege_login':"email or password was worng"}))
+        return render(request, 'schedule/homepage.html')
 
 def logout_views(request):
     logout(request)

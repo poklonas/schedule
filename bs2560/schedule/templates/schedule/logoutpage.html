@@ -1,0 +1,24 @@
+<html>
+<head>
+    {% load static %}
+    <title>logout</title>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
+</head>
+
+<body>
+<div class="container">
+<div class="jumbotron">
+<center>
+      <h3>You was login please logout</h3>
+      <div>
+      <form method="post" class="form">
+      {% csrf_token %}
+        <input formaction="{% url 'schedule:logout' %}" class="btn btn-success" type="submit" value="LOGOUT" style="width:50%;height:10%">
+      </form>
+      </div>
+</center>
+</div>
+</div>
+</body>
+</html>
