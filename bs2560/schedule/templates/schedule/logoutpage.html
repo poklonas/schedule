@@ -10,8 +10,8 @@
 <div class="container">
 <div class="jumbotron">
 <center>
-      <h3>You was login please logout</h3>
       <div>
+      <h3>Other user was login please logout</h3>
       <form method="post" class="form">
       {% csrf_token %}
         <input formaction="{% url 'schedule:logout' %}" class="btn btn-success" type="submit" value="LOGOUT" style="width:50%;height:10%">
