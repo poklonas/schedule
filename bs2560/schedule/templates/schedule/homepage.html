@@ -25,7 +25,12 @@
 
 <div class="container">
  <div class="jumbotron">
-    <h1>Hi , Who are you ?</h1>
+    <h1>LOGIN</h1>
+	{% if error_messege_login %}
+      <div class="alert alert-warning">
+            <strong>Error!  :   {{error_messege_login}} </strong>   
+      </div>
+	{% endif %}
     <br>
     <div class="list-group" id="user_list">
     {% for user in user_list %}
@@ -36,9 +41,16 @@
 </div>
 
 <div class="container">
+	{% if error_messege_new_user %}
+      <div class="alert alert-warning">
+            <strong>Error!  :   {{error_messege_new_user}} </strong>   
+      </div>
+	{% endif %}
 	<form method="post" class="form-inline">
         {% csrf_token %}
 		 <input class="form-control" id="new_user" type="text" name="user_name" placeholder="user name" required>
+		 <input class="form-control" id="new_email" type="text" name="email" placeholder="user email" required>
+		 <input class="form-control" id="new_pass" type="text" name="password" placeholder="user password" required>
 		<input class="btn btn-success" type="submit" value="New User">
     </form>
     </div>
