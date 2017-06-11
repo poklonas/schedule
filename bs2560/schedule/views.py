@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from schedule.models import User, Activity
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User as User_id
 
 ''' if this page has value from form it will creat a user object
 	and redirect to it self '''
@@ -13,16 +14,27 @@ def home_page(request):
     return render(request, 'schedule/homepage.html', {'user_list': user_list})
 
 def create_user(request):
-    user = User.objects.create(name=request.POST['user_name'])
-    user.save()
-    generate_activity_for_first_time_of_user('Monday', user.pk)
-    generate_activity_for_first_time_of_user('Tuesday', user.pk)
-    generate_activity_for_first_time_of_user('Wednesday', user.pk)
-    generate_activity_for_first_time_of_user('Thursday', user.pk)
-    generate_activity_for_first_time_of_user('Friday', user.pk)
-    generate_activity_for_first_time_of_user('Saturday', user.pk)
-    generate_activity_for_first_time_of_user('Sunday', user.pk)
-    return redirect(reverse('schedule:home_page'))
+    new_email = request.POST['email']
+    user_name = request.POST['user_name']
+    user_pass = request.POST['password']
+    try: # if error that mean dont have any user object which have mail = new mail
+        check_user_email = User.objects.get(mail=new_email)
+    except: # so make it new one 
+        user = User.objects.create(name=user_name, mail=new_email)
+        user.save()
+        generate_activity_for_first_time_of_user('Monday', user.pk)
+        generate_activity_for_first_time_of_user('Tuesday', user.pk)
+        generate_activity_for_first_time_of_user('Wednesday', user.pk)
+        generate_activity_for_first_time_of_user('Thursday', user.pk)
+        generate_activity_for_first_time_of_user('Friday', user.pk)
+        generate_activity_for_first_time_of_user('Saturday', user.pk)
+        generate_activity_for_first_time_of_user('Sunday', user.pk)
+        new_id = User_id.objects.create_user(user_name,
+                                             new_email,
+                                             user_pass)
+        new_id.save()
+        return redirect(reverse('schedule:home_page'))
+    return render(request, 'schedule/homepage.html', {'error_messege_new_user':"That email was alerdy used"})
 
 def generate_activity_for_first_time_of_user(day, user_id):
     user = User.objects.get(pk=user_id)
