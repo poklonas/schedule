@@ -35,7 +35,7 @@
     <div>
 		<form method="post" class="form">
         	{% csrf_token %}
-		 	<input class="form-control" id="login_email" type="text" name="login_email" placeholder="user email" required style="width:50%;height:7%">
+		 	<input class="form-control" id="login_email" type="email" name="login_email" placeholder="user email" required style="width:50%;height:7%">
 		 	<input class="form-control" id="login_pass" type="password" name="login_password" placeholder="user password" required style="width:50%;height:7%"><br>
 			<input formaction="{% url 'schedule:home_page' %}" class="btn btn-success" type="submit" value="login" style="width:30%;height:7%">
     	</form>
@@ -54,7 +54,7 @@
 	<form method="post" class="form">
         {% csrf_token %}
 		 <input class="form-control" id="new_user" type="text" name="user_name" placeholder="user name" required style="width:50%;height:7%">
-		 <input class="form-control" id="new_email" type="text" name="email" placeholder="user email" required style="width:50%;height:7%">
+		 <input class="form-control" id="new_email" type="email" name="email" placeholder="user email" required style="width:50%;height:7%">
 		 <input class="form-control" id="new_pass" type="password" name="password" placeholder="user password" required style="width:50%;height:7%">
 		 <br>
 		<input formaction="{% url 'schedule:create_user' %}" class="btn btn-success" type="submit" value="New User" style="width:30%;height:7%">
