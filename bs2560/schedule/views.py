@@ -8,17 +8,21 @@ from django.contrib.auth.decorators import login_required
 def home_page(request):
     user_list = User.objects.all()
     if request.method == 'POST':
-        user = User.objects.create(name=request.POST['user_name'])
-        user.save()
-        generate_activity_for_first_time_of_user('Monday', user.pk)
-        generate_activity_for_first_time_of_user('Tuesday', user.pk)
-        generate_activity_for_first_time_of_user('Wednesday', user.pk)
-        generate_activity_for_first_time_of_user('Thursday', user.pk)
-        generate_activity_for_first_time_of_user('Friday', user.pk)
-        generate_activity_for_first_time_of_user('Saturday', user.pk)
-        generate_activity_for_first_time_of_user('Sunday', user.pk)
+        # wait login command
         return redirect(reverse('schedule:home_page'))
     return render(request, 'schedule/homepage.html', {'user_list': user_list})
+
+def create_user(request):
+    user = User.objects.create(name=request.POST['user_name'])
+    user.save()
+    generate_activity_for_first_time_of_user('Monday', user.pk)
+    generate_activity_for_first_time_of_user('Tuesday', user.pk)
+    generate_activity_for_first_time_of_user('Wednesday', user.pk)
+    generate_activity_for_first_time_of_user('Thursday', user.pk)
+    generate_activity_for_first_time_of_user('Friday', user.pk)
+    generate_activity_for_first_time_of_user('Saturday', user.pk)
+    generate_activity_for_first_time_of_user('Sunday', user.pk)
+    return redirect(reverse('schedule:home_page'))
 
 def generate_activity_for_first_time_of_user(day, user_id):
     user = User.objects.get(pk=user_id)
