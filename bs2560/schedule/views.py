@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from schedule.models import User, Activity
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 
 ''' if this page has value from form it will creat a user object
 	and redirect to it self '''
@@ -27,10 +27,12 @@ def generate_activity_for_first_time_of_user(day, user_id):
                                 time=count,
                                 day=day)
 
+@login_required(login_url='/')
 def user_page(request, user_id):
     user = User.objects.get(pk=user_id)
     return render(request, 'schedule/userpage.html', {'user': user})
 
+@login_required(login_url='/')
 def add_new_activity(request, user_id):
     user = User.objects.get(pk=user_id)
     start_time = int(request.POST['start_time'])
@@ -104,6 +106,7 @@ def find_head_from_connected(user_id, time, day):
     else:
         return time
 
+@login_required(login_url='/')
 def confirm_delete(request, user_id):
     user = User.objects.get(pk=user_id)
     start_time = int(request.POST['start_time'])

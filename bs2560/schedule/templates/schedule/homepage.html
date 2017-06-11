@@ -32,10 +32,13 @@
       </div>
 	{% endif %}
     <br>
-    <div class="list-group" id="user_list">
-    {% for user in user_list %}
-        <a id='{{user.pk}}' href="{% url 'schedule:user_page' user_id=user.pk %}" class="list-group-item">{{ user.name }}</a>
-    {% endfor %}
+    <div>
+		<form method="post" class="form">
+        	{% csrf_token %}
+		 	<input class="form-control" id="login_email" type="text" name="login_email" placeholder="user email" required style="width:40%;height:7%">
+		 	<input class="form-control" id="login_pass" type="text" name="login_password" placeholder="user password" required style="width:40%;height:7%"><br>
+			<input formaction="{% url 'schedule:home_page' %}" class="btn btn-success" type="submit" value="login" style="width:30%;height:7%">
+    	</form>
     </div>
 </div>
 </div>
