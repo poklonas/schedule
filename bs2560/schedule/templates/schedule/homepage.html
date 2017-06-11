@@ -52,7 +52,7 @@
       </div>
 	{% endif %}
 	<form method="post" class="form">
-        {% csrf_token %}
+         {% csrf_token %}
 		 <input class="form-control" id="new_user" type="text" name="user_name" placeholder="user name" required style="width:50%;height:7%">
 		 <input class="form-control" id="new_email" type="email" name="email" placeholder="user email" required style="width:50%;height:7%">
 		 <input class="form-control" id="new_pass" type="password" name="password" placeholder="user password" required style="width:50%;height:7%">

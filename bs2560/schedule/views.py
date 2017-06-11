@@ -3,15 +3,24 @@ from schedule.models import User, Activity
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as User_id
+from django.contrib.auth import authenticate, login
+
 
 ''' if this page has value from form it will creat a user object
 	and redirect to it self '''
 def home_page(request):
-    user_list = User.objects.all()
     if request.method == 'POST':
-        # wait login command
-        return redirect(reverse('schedule:home_page'))
-    return render(request, 'schedule/homepage.html', {'user_list': user_list})
+        email = request.POST['login_email']
+        password = request.POST['login_password']
+        user_name = User_id.objects.get(email=email.lower()).username
+        user = authenticate(username=user_name, password=password)
+        if user is not None:
+            user_pk = User.objects.get(mail=email).pk
+            login(request, user)
+            return redirect(reverse('schedule:user_page', kwargs={'user_id':user_pk}))
+        else:
+            return render(request, 'schedule/homepage.html', {'error_messege_login':"email or password was worng"})
+    return render(request, 'schedule/homepage.html')
 
 def create_user(request):
     new_email = request.POST['email']
