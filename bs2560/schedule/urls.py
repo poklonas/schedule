@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^(?P<user_id>[0-9]+)/add_new_activity$', views.add_new_activity, name='add_new_activity'),
     url(r'^(?P<user_id>[0-9]+)/confirm_delete$', views.confirm_delete, name='confirm_delete'),
     url(r'^create_user$', views.create_user, name='create_user'),
+    url(r'^logout$', views.logout_views, name='logout'),
 ]
