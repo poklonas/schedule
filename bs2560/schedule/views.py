@@ -6,8 +6,11 @@ from django.contrib.auth.models import User as User_id
 from django.contrib.auth import authenticate, login, logout
 
 
-''' if this page has value from form it will creat a user object
-	and redirect to it self '''
+'''
+ for recieve value from form for login or show homepage that include login and 
+ register form in this page but if was login this functiona will return userpage
+ instead homepage page, if login success this function will return userpage
+'''
 def home_page(request):
     if request.user.is_authenticated:
         user_pk = (User.objects.get(mail=request.user.email)).pk
@@ -26,10 +29,14 @@ def home_page(request):
                 return render(request, 'schedule/homepage.html', {'error_messege_login':"email or password was worng"})
         return render(request, 'schedule/homepage.html')
 
-def logout_views(request):
+def logout_views(request):  #logout and return homepage page
     logout(request)
     return redirect(reverse('schedule:home_page'))
 
+''' 
+ create user from value from form and check by email if that email was alredy 
+ used, this will not create new user but will return error massage
+'''
 def create_user(request):
     new_email = request.POST['email']
     user_name = request.POST['user_name']
@@ -53,6 +60,7 @@ def create_user(request):
         return redirect(reverse('schedule:home_page'))
     return render(request, 'schedule/homepage.html', {'error_messege_new_user':"That email was alredy used"})
 
+#create activirt for first time user
 def generate_activity_for_first_time_of_user(day, user_id):
     user = User.objects.get(pk=user_id)
     for count in range(0, 24):
@@ -60,6 +68,7 @@ def generate_activity_for_first_time_of_user(day, user_id):
                                 time=count,
                                 day=day)
 
+#email was alredy used?
 def check_email_login(request, user_page_mail):
     return (request.user.email == user_page_mail)
 
@@ -102,6 +111,10 @@ def add_new_activity(request, user_id):
     else:
         return render(request, 'schedule/logoutpage.html')
 
+'''
+ this fucntion will check activity in user and check by count down index for 
+ reset and stop when find head of  activity
+'''
 def reset_same_time_activity_reverse(user_id, time, day): #count-down to reset
     user = User.objects.get(pk=user_id)
     extend_activity = Activity.objects.get(user=user, time=time, day=day)
@@ -115,6 +128,10 @@ def reset_same_time_activity_reverse(user_id, time, day): #count-down to reset
             time -= 1
             reset_same_time_activity_reverse(user_id, time, day)
 
+'''
+ this fucntion will check activity in user and check by count up index for 
+ reset and stop when find head of  activity
+'''
 def reset_same_time_activity_forward(user_id, time, day, time_left): # count-up to reset by time-left
     user = User.objects.get(pk=user_id)
     extend_activity = Activity.objects.get(user=user, time=time, day=day)
@@ -128,6 +145,11 @@ def reset_same_time_activity_forward(user_id, time, day, time_left): # count-up 
             time_left -= 1
             reset_same_time_activity_forward(user_id, time, day, time_left)
 
+'''
+  this function will check that new activity, that has a collied time or not if
+  that collied it return list of collide , check by user attibute connected in
+  activity model
+'''
 def check_has_same_time(user_id, time, day, spend_time):
     user = User.objects.get(pk=user_id)
     extend_activity = Activity.objects.get(user=user, time=time, day=day)
@@ -140,6 +162,9 @@ def check_has_same_time(user_id, time, day, spend_time):
             collide.append(i)
     return collide
 
+'''
+ this function will return time of head activity , head mean start time of activity
+'''
 def find_head_from_connected(user_id, time, day):
     user = User.objects.get(pk=user_id)
     extend_activity = Activity.objects.get(user=user, time=time, day=day)

@@ -2,6 +2,8 @@ from django.core.urlresolvers import resolve
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
+from django.contrib.auth.models import User as User_id
+from django.contrib.auth import authenticate, login, logout
 from schedule.views import *
 from schedule.models import *
 
@@ -53,22 +55,6 @@ class ScheduleHomePageTest(TestCase):
         home_page(request)
         self.assertEqual(User.objects.count(), 0)
 
-    def test_home_page_display_all_user_list(self):
-        User.objects.create(name='user_one')
-        User.objects.create(name='user_two')
-        request = HttpRequest()
-        response = home_page(request)
-        self.assertIn('user_one', response.content.decode())
-        self.assertIn('user_two', response.content.decode())
-
-    def test_home_page_display_all_user_link(self):
-        user_one = User.objects.create(name='user_one')
-        user_two = User.objects.create(name='user_two')
-        request = HttpRequest()
-        response = home_page(request)
-        all_link = re.findall(r'href=[\'"]?([^\'" >]+)', response.content.decode())
-        self.assertIn('/%d'%user_one.pk, all_link)
-        self.assertIn('/%d'%user_two.pk, all_link)
 
 class ScheduleUserPageTest(TestCase):
 
@@ -90,9 +76,9 @@ class ScheduleUserPageTest(TestCase):
         self.assertTrue(response.content.strip().endswith(b'</html>'))
 
     def test_user_page_return_correct_html(self):
-        user = User(name='')
-        user.save()
         request = HttpRequest()
+        user = User(name='user')
+        user.save()
         response = user_page(request, user_id=user.pk)
         expected_html = render_to_string('schedule/userpage.html')
         self.assertEqual(self.remove_csrf(response.content.decode()), 
@@ -103,7 +89,7 @@ class ScheduleUserPageTest(TestCase):
         self.assertIn("<table id='table_time'>", self.remove_csrf(expected_html))
 
     def test_user_page_has_element_id_time(self):
-        user = User(name='')
+        user = User(name='user')
         user.save()
         request = HttpRequest()
         response = user_page(request, user_id=user.pk)
@@ -213,21 +199,23 @@ class ScheduleUserPageTest(TestCase):
 class UserModelTest(TestCase):
 
     def test_saving_and_retrieving_user(self):
-        first_user = User(name='first')
+        first_user = User(name='first', mail='first@hotmail.com')
         first_user.save()
-        second_user = User(name='second')
+        second_user = User(name='second', mail='second@hotmail.com')
         second_user.save()
         all_user = User.objects.all()
         self.assertEqual(all_user.count(), 2)
         first_save_user = all_user[0]
         second_save_user = all_user[1]
         self.assertEqual(first_save_user.name, 'first')
+        self.assertEqual(first_save_user.mail, 'first@hotmail.com')
         self.assertEqual(second_save_user.name, 'second')
-      
+        self.assertEqual(second_save_user.mail, 'second@hotmail.com')
+  
 class ActivityModelTest(TestCase):
     
     def test_saving_and_retrieving_activity(self):
-        user = User(name='user')
+        user = User(name='user', mail='user@hotmail.com')
         user.save()
         activity_one = Activity(user=user, detail='first_activity', time=1, day='Monday')
         activity_one.save()
