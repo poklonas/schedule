@@ -48,50 +48,60 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # He saw the title page was "schedule"
         self.assertIn('schedule', self.browser.title)
 
-        # then the words " Hi , Who are you ? " in the center of that web
+        # then the words "LOGIN" in the center of that web and REGISTER below
         center_text = self.browser.find_element_by_tag_name('center')
         head_text =center_text.find_elements_by_tag_name('h1')
-        self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
+        self.assertIn("LOGIN", [row.text for row in head_text])
+        self.assertIn("Register", [row.text for row in head_text])
 
         # he saw the input box in buttom of that page
-        # he fill his name and enter button to make new user
+        # he fill his name ,password and email and enter button to make new user
         input_username = self.browser.find_element_by_id('new_user')
         self.assertEqual(
                 input_username.get_attribute('placeholder'),
                 'user name'
         )
         input_username.send_keys('fox')
-        input_username.send_keys(Keys.ENTER)
 
-        time.sleep(0.5)# wait for data     
+        #fill password
+        input_password = self.browser.find_element_by_id('new_pass')
+        self.assertEqual(
+                input_password.get_attribute('placeholder'),
+                'user password'
+        )
+        input_password.send_keys('123456')
 
-        # that page refresh and show new user in user list
-        # he saw user name " fox ""
-        self.check_for_row_in_user_list_table('fox')
+		#fill email
+        input_email = self.browser.find_element_by_id('new_email')
+        self.assertEqual(
+                input_email.get_attribute('placeholder'),
+                'user email'
+        )
+        input_email.send_keys('fox@hotmail.com')
 
-        # his friend see that and interesting in this he want user for
-        # him self mr.fox fill name "Jay" in input box and make new user again
-        input_username = self.browser.find_element_by_id('new_user')
-        input_username.send_keys('Jay')
-        input_username.send_keys(Keys.ENTER)
+        input_email.send_keys(Keys.ENTER)
+        time.sleep(0.5)  # wait for data     
 
-        time.sleep(0.5)
+		# then that page refreash to homepage 
+        # he want to login , he fill email and password and enter
 
-        #that page refreash again and show new user in user list
-        # that include fox and Jay
-        self.check_for_row_in_user_list_table('fox')
-        self.check_for_row_in_user_list_table('Jay')
+        input_password = self.browser.find_element_by_id('login_pass')
+        self.assertEqual(
+                input_password.get_attribute('placeholder'),
+                'user password'
+        )
+        input_password.send_keys('123456')
 
-        # he observe the user name that is a link 
-        self.check_for_row_in_user_list_table_is_link('fox')
-        self.check_for_row_in_user_list_table_is_link('Jay')
-        
+		#fill email
+        input_email = self.browser.find_element_by_id('login_email')
+        self.assertEqual(
+                input_email.get_attribute('placeholder'),
+                'user email'
+        )
+        input_email.send_keys('fox@hotmail.com')
 
-        # he click his name [that was a link]
-        link = self.browser.find_element_by_link_text('fox')
-        link.click()
-
-        time.sleep(0.5)
+        input_email.send_keys(Keys.ENTER)
+        time.sleep(0.5)  #wait for data
 
         # then that page change to his user page
         # the title page is "user_page"
@@ -156,6 +166,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         how_many_hour.send_keys(3)
         how_many_hour.send_keys(Keys.ENTER)
         time.sleep(0.5)
+
         # browser go to confirm page that show list of collide activity he click yes button to confirm it
         self.assertIn('confirm_add', self.browser.title)
         button_confirm = self.browser.find_element_by_id('yes_input')
@@ -182,8 +193,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         head_text =center_text.find_elements_by_tag_name('strong')
         self.assertIn("Error! : Your select time after 23.00 It cant , please Try another time", [row.text for row in head_text])
 
-        # he dont care it and ,he saw a link back to main menu in top left
-        link_back = self.browser.find_element_by_link_text('Back to main menu')
+        # he dont care it and ,he saw a link LOGOUT in top left
+        link_back = self.browser.find_element_by_link_text('LOGOUT')
 
         # he click to return a homepage
         link_back.click()
@@ -191,11 +202,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # He saw the title page was "schedule"
         self.assertIn('schedule', self.browser.title)
-
-        # then the words " Hi , Who are you ? " in the center of that web
-        center_text = self.browser.find_element_by_tag_name('center')
-        head_text =center_text.find_elements_by_tag_name('h1')
-        self.assertIn("Hi , Who are you ?", [row.text for row in head_text])
         
         # he close webbrowser
         self.fail("Yeah this complete")
